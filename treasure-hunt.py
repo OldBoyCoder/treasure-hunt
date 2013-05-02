@@ -76,7 +76,7 @@ while (play == 0):
 			# replace it with Diamonds
 			mc.setBlock(tl2.x, tl2.y, tl2.z, block.DIAMOND_BLOCK)
 			elapsed = time.time() - timeStart
-			mc.postToChat("Well done, you took " +str(elapsed) +" seconds")
+			mc.postToChat("Well done, you took " +str(int(elapsed)) +" seconds")
 			play = 1
 	for i in range(0,5):
 		iRange = (i) * RANGE_GAP
