@@ -22,6 +22,7 @@ RGB_RED = 11
 RGB_GREEN = 13
 RGB_BLUE = 15
 RGB = [RGB_RED,RGB_GREEN,RGB_BLUE]
+BAD_BLOCKS = [block.WATER, block.WATER_STATIONARY, block.LAVA]
 RANGE_GAP = 30
 
 def led_setup():
@@ -42,9 +43,14 @@ def led_clear():
 		GPIO.output(val,RGB_DISABLE)
 	GPIO.output(RGB_RED, RGB_ENABLE)
 def placeTreasure():
-	tb = vec3.Vec3(random.randint(-128,128), 80, random.randint(-128,128))
-	tb.y = mc.getHeight(tb.x, tb.z)
-	return tb
+	while (True):
+		tb = vec3.Vec3(random.randint(-100,100), 80, random.randint(-100,100))
+		tb.y = mc.getHeight(tb.x, tb.z)
+		b = mc.getBlock(tb.x, tb.y-1, tb.z)
+		if b not in BAD_BLOCKS:
+			d = distanceToTreasure(tb)
+			if (d > 3 * RANGE_GAP and  d< 5 * RANGE_GAP) :
+				return tb
 def distanceToTreasure(tb):
 	p = mc.player.getPos();
 	xd = tb.x - p.x
